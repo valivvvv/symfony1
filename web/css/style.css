@@ -1,0 +1,195 @@
+/* Reset CSS */
+
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,del, dfn, img, ins, kbd, q, s, samp, small, strike, tt, var, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed ,figure, figcaption, footer, header, hgroup,menu, nav, output, ruby, section, summary,time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	outline: none;
+	text-decoration: none;
+}
+*, *:before, *:after {
+	webkit-box-sizing: border-box;
+	moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+input, select, textarea {
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	border: none;
+}
+input:focus, select:focus, textarea:focus {
+	outline: none;
+}
+address, caption, cite, code, dfn, th, var, h1, h2, h3 {
+	font-style: normal;
+	font-weight: normal;
+}
+body {
+	line-height: 1.5;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	background: #ffffff;
+	color: #444444;
+	min-height: 100%;
+}
+p {
+	line-height: 1.5;
+	font-size: 14px;
+}
+html {
+	margin-top: 0 !important;
+	height: 100%;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+fieldset, img {
+	border: 0;
+}
+ol, ul {
+	list-style: none;
+}
+caption, th {
+	text-align: left;
+}
+small {
+	font-size: 75%;
+}
+a img {
+	border: none;
+}
+a {
+	cursor: pointer;
+	color: #000000;
+	text-decoration: none;
+}
+a:hover, a:focus {
+	text-decoration: none;
+	outline: none;
+}
+img {
+	display: inline-block;
+	max-width: 100%;
+	height: auto;
+	vertical-align: top;
+}
+
+/* TEMPLATE CLASSES */
+html, body {
+  	height: 100%;
+  	margin: 0;
+}
+.wrapper {
+	display: table;
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+.sf-toolbar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+.content {
+	display: table-row;
+	height: 100%;
+}
+.footer {
+	display: table-row;
+}
+.footer-content {
+	padding-bottom: 36px;
+}
+.centerdiv {
+	max-width: 1320px;
+    margin: 0 auto;
+    padding: 0px 20px;
+}
+.clear {
+	height: 0px !important;
+	width: 0px !important;
+	clear: both !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	float: none !important;
+}
+.clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+/* MOBILE HEADER */
+
+.no-scroll {
+    height: 100%;
+    overflow: hidden;
+}
+#mobile-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+	padding: 10px 20px;
+}
+a#mobile-logo {
+	display: inline-block;
+    float: left;
+	height: 32px;
+	width: auto;
+}
+a#mobile-logo img {
+	max-width: 100%;
+	max-height: 100%;
+}
+a#mobile-nav-btn {
+    display: inline-block;
+    float: right;
+    position: relative;
+    z-index: 10001;
+    cursor: pointer;
+}
+#mobile-nav-btn img {
+    display: inline-block;
+    vertical-align: middle;
+}
+#mobile-nav {
+    display: none;
+    background: #cecece;
+    position: fixed;
+    top: 52px; /* #mobile-header height */
+    left: 0;
+    z-index: 10000;
+    width: 100%;
+    overflow-y: auto;
+}
+#mobile-nav ul {
+	padding: 0;
+	margin: 0;
+}
+#mobile-nav li {
+    display: block;
+    text-align: center;
+}
+#mobile-nav li a {
+    display: block;
+    padding: 20px 5px;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+#mobile-nav li:hover {
+    background: #e4e4e0;
+}
+
+@media only screen and (max-width: 767px) {
+	#mobile-header {
+		display: block; 
+	}
+}

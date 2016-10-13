@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - {{ title }} {% endblock %}
+
+{% block body %}
+	<div class="centeridv">
+    	{#{{ dump() }}#}
+    
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="flash-notice">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+        
+        <div>
+            {{ safe }}
+        </div>
+        <div>
+            {{ danger }}
+        </div>
+        
+        <a href="{{ path('taxi_reviews', {'licensePlate': 'ok'}) }}">Json Notes</a>
+    
+    </div><!-- end .centeridv -->
+    
+{% endblock %}

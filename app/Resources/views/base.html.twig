@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        	<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}">
+        	<link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    	<div class="wrapper">
+            <div class="content">
+            	
+                {% block mobile_header %}
+                <div id="mobile-header">
+                    <a href="" id="mobile-logo">
+                    </a>
+                    <a id="mobile-nav-btn">
+                    </a>
+                    <div id="mobile-nav">
+                        <ul>
+                            <li><a href="/">Discover</a></li>
+                            <li><a href="/">Discover</a></li>
+                            <li><a href="/">Discover</a></li>
+                            <li><a href="/">Discover</a></li>
+                        </ul>      
+                    </div>
+                </div>
+                {% endblock %}
+                
+                {% block header %} 
+                <div class="search-bar">
+                    <form method="GET" action="">
+                        <input type="search" name="q" placeholder="Search Sea Creatures" autocomplete="off" class="search-input">
+                    </form>
+                </div>
+                <header class="header">
+                    <h1 class="logo">AquaNote</h1>
+                    <ul class="navi">
+                        <li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>
+                        <li><a href="#">Login</a></li>
+                    </ul>
+                </header>
+                {% endblock %}
+                
+                {% block body %}
+                {% endblock %}
+                
+            </div>
+            
+            <div class="footer">
+            	<div class="footer-content">
+                	{% block footer %}
+            			Footer
+                    {% endblock %}
+                </div>
+            </div>
+            
+        </div><!-- .wrapper end -->
+        
+        {% block javascripts %}
+        	<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+            <script src="{{ asset('js/custom.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>
+
