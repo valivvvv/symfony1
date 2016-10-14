@@ -72,6 +72,7 @@ class DefaultController extends Controller
 	public function showAction($licensePlate)
 	{
 		$em = $this->getDoctrine()->getManager();
+		
 		$genus = $em->getRepository('AppBundle:Genus')
 		  ->findOneBy(array('name' => $licensePlate));
 		  
@@ -96,18 +97,21 @@ class DefaultController extends Controller
         $this->get('logger')
             ->info('Showing genus: '.$licensePlate);
 			
+		/* Gets all notes, then we filter the array
 		$recentNotes = $genus->getNotes()
             ->filter(function(GenusNote $note) {
                 return $note->getCreatedAt() > new \DateTime('-3 months');
-            });
+            });*/
+			
+		$recentNotes = $em->getRepository('AppBundle:GenusNote')
+            ->findAllRecentNotesForGenus($genus);
 
-
-	   return $this->render('taxi/show.html.twig', array(
+		return $this->render('taxi/show.html.twig', array(
 		  'title' 			=> $licensePlate,
 		  'genus' 			=> $genus,
 		  'recentNoteCount' => count($recentNotes),
 		  //'funFact' => $funFact,
-	  ));
+		));
 	}
 	
 	/**
