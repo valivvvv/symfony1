@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Genus;
 use AppBundle\Entity\GenusNote;
+use AppBundle\Service\MarkdownTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -56,7 +57,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $genuses = $em->getRepository('AppBundle:Genus')
-            ->findAllPublishedOrderedBySize();
+            ->findAllPublishedOrderedByRecentlyActive();
 		
 		//dump($em->getRepository('AppBundle:Genus'));
         
@@ -79,6 +80,12 @@ class DefaultController extends Controller
 		if (!$genus) {
             throw $this->createNotFoundException('Taxi not found');
         }	  
+		
+		$markdownTransformer = new MarkdownTransformer(
+            $this->get('markdown.parser')
+        );
+		
+		$funFact = $markdownTransformer->parse($genus->getFunFact());
 		  
 	   // todo - add the caching back later
         /*
@@ -110,7 +117,7 @@ class DefaultController extends Controller
 		  'title' 			=> $licensePlate,
 		  'genus' 			=> $genus,
 		  'recentNoteCount' => count($recentNotes),
-		  //'funFact' => $funFact,
+		  'funFact' => $funFact,
 		));
 	}
 	
