@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Genus;
 use AppBundle\Entity\GenusNote;
-use AppBundle\Service\MarkdownTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -81,25 +80,7 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Taxi not found');
         }	  
 		
-		$markdownTransformer = new MarkdownTransformer(
-            $this->get('markdown.parser')
-        );
-		
-		$funFact = $markdownTransformer->parse($genus->getFunFact());
-		  
-	   // todo - add the caching back later
-        /*
-        $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
-        $key = md5($funFact);
-        if ($cache->contains($key)) {
-            $funFact = $cache->fetch($key);
-        } else {
-            sleep(1); // fake how slow this could be
-            $funFact = $this->get('markdown.parser')
-                ->transform($funFact);
-            $cache->save($key, $funFact);
-        }
-        */
+		$markdownTransformer = $this->get('app.markdown_transformer'); // registered in services.yml
 		
         $this->get('logger')
             ->info('Showing genus: '.$licensePlate);
@@ -117,7 +98,6 @@ class DefaultController extends Controller
 		  'title' 			=> $licensePlate,
 		  'genus' 			=> $genus,
 		  'recentNoteCount' => count($recentNotes),
-		  'funFact' => $funFact,
 		));
 	}
 	
