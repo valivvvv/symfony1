@@ -16,9 +16,9 @@ html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockqu
 	box-sizing: border-box;
 }
 input, select, textarea {
-	-webkit-appearance: none;
+	/*-webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none;
+    appearance: none;*/
 	border: none;
 }
 input:focus, select:focus, textarea:focus {
@@ -186,6 +186,11 @@ a#mobile-nav-btn {
 }
 #mobile-nav li:hover {
     background: #e4e4e0;
+}
+
+/* Forms */
+input { 
+	border: 1px solid #cecece;
 }
 
 @media only screen and (max-width: 767px) {
