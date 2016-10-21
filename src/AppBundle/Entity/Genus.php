@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GenusRepository")
@@ -21,7 +22,8 @@ class Genus
      */
     private $name;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamily")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $subFamily;
     /**
@@ -39,7 +41,7 @@ class Genus
     private $isPublished = true;
 	
 	/**
-     * @ORM\OneToMany(targetEntity="GenusNote", mappedBy="genus")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GenusNote", mappedBy="genus")
 	 * @ORM\OrderBy({"createdAt" = "DESC"})
      */
 	private $notes;
@@ -84,27 +86,16 @@ class Genus
     }
 
     /**
-     * Set subFamily
-     *
-     * @param string $subFamily
-     *
-     * @return Genus
-     */
-    public function setSubFamily($subFamily)
-    {
-        $this->subFamily = $subFamily;
-
-        return $this;
-    }
-
-    /**
-     * Get subFamily
-     *
-     * @return string
+     * @return SubFamily
      */
     public function getSubFamily()
     {
         return $this->subFamily;
+    }
+	
+    public function setSubFamily(SubFamily $subFamily)
+    {
+        $this->subFamily = $subFamily;
     }
 
     /**

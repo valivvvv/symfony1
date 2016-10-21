@@ -41,4 +41,18 @@ class LoadFixtures implements FixtureInterface
 		$key = array_rand($genera);
         return $genera[$key];
 	}
+	
+	public function subFamily()
+    {
+        $family = [
+            'family_1',
+			'family_2',
+			'family_3',
+			'family_4',
+			'family_5',
+        ];
+		
+		$key = array_rand($family);
+        return $family[$key];
+	}
 }
