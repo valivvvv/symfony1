@@ -23,3 +23,4 @@ AppBundle\Entity\User:
     user_{1..10}:
         email: vali.takenusername+<current()>@gmail.com
         plainPassword: vali
+        roles: ['ROLE_ADMIN']
