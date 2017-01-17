@@ -25,6 +25,20 @@ class User implements UserInterface
      */
 	private $email;
 	
+	/**
+     * The encoded password
+     *
+     * @ORM\Column(type="string")
+     */
+    private $password;
+	
+	/**
+     * A non-persisted field that's used to create the encoded password.
+     *
+     * @var string
+     */
+    private $plainPassword;
+	
     // needed by the security system
     public function getUsername()
     {
@@ -38,7 +52,7 @@ class User implements UserInterface
 	
     public function getPassword()
     {
-        // leaving blank - I don't need/have a password!
+        return $this->password;
     }
 	
     public function getSalt()
@@ -48,7 +62,7 @@ class User implements UserInterface
 	
     public function eraseCredentials()
     {
-        // leaving blank - I don't need/have a password!
+        $this->plainPassword = null;
     }
 	
     public function getEmail()
@@ -59,5 +73,23 @@ class User implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+	
+	public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+	
+	public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+	
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+		// forces the object to look "dirty" to Doctrine. Avoids
+        // Doctrine *not* saving this entity, if only plainPassword changes
+        $this->password = null;
     }
 }
