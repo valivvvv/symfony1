@@ -2,9 +2,11 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity
@@ -21,6 +23,11 @@ class User implements UserInterface
     private $id;
 	
 	/**
+	 * @Assert\NotBlank()
+	 * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      * @ORM\Column(type="string", unique=true)
      */
 	private $email;
@@ -40,6 +47,7 @@ class User implements UserInterface
     private $plainPassword;
 	
 	/**
+	 * @Assert\NotBlank()
      * @ORM\Column(type="json_array")
      */
     private $roles = array();
@@ -48,6 +56,16 @@ class User implements UserInterface
     public function getUsername()
     {
         return $this->email;
+    }
+	
+	/**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 	
     public function getRoles()

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} {% endblock %}
+
+{% block body %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Created at</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>
+                    	<a href="{#{ path('taxi_show', {'licensePlate': genus.name}) }#}">
+                            {{ user.email }}
+                        </a>
+                    </td>
+                    <td>{% for role in user.roles %}{{ role }} {% endfor %}</td>
+                    <td>{#{ genus.updatedAt|date('Y-m-d') }#}</td>
+                    <td>
+                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-xs btn-success"><span class="fa fa-pencil"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
