@@ -3,6 +3,11 @@
 {% block title %}{{ parent() }} - {{ title }} {% endblock %}
 
 {% block body %}
+	<h1 class="page-header text-center">
+        Welcome
+        {{ app.user ? app.user.email : 'Aquanauts' }}!
+    </h1>
+
 	<div class="centeridv">
     	{#{{ dump() }}#}
         
@@ -13,7 +18,7 @@
             {{ danger }}
         </div>
         
-        <a href="{{ path('taxi_show_reviews', {'name': 'ok'}) }}">Json Notes</a>
+        <a href="{{ path('taxi_show_reviews', {'name': 'Balaena'}) }}">Json Notes</a>
     
     </div><!-- end .centeridv -->
     

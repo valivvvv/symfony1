@@ -4,6 +4,12 @@ security:
     encoders:
         AppBundle\Entity\User: bcrypt
 
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_MANAGE_GENUS, ROLE_ALLOWED_TO_SWITCH] 
+    
+    # to switch user, use : ?_switch_user=user_name 
+    # to switch back, use : ?_switch_user=_exit
+
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         taxi_users:
@@ -23,6 +29,8 @@ security:
             
             logout:
                 path: /logout
+
+            switch_user: ~
 
             # activate different ways to authenticate
 
