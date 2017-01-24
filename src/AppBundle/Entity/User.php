@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
+ * @UniqueEntity(fields={"email"}, message="It looks like your already have an account!")
  */
 class User implements UserInterface
 {
@@ -41,13 +43,14 @@ class User implements UserInterface
 	
 	/**
      * A non-persisted field that's used to create the encoded password.
+	 * @Assert\NotBlank(groups={"Registration"})
      *
      * @var string
      */
     private $plainPassword;
 	
 	/**
-	 * @Assert\NotBlank()
+	 * @Assert\NotBlank(groups={"Edit"})
      * @ORM\Column(type="json_array")
      */
     private $roles = array();
