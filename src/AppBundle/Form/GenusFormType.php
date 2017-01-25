@@ -55,6 +55,8 @@ class GenusFormType extends AbstractType
             'data_class' => 'AppBundle\Entity\Genus'
         ));
     }
+
+	/* If ever need to render form fields manually: http://knpuniversity.com/screencast/symfony-form-theming/rendering-fields-manually */
 	
 	/*Right now, our form is bound to our entity and that makes this form super easy to use. But eventually, you'll need to build a form that does not look exactly like your entity: perhaps it has a few extra fields or is a combination of fields from several entities.
 
