@@ -12,4 +12,14 @@ class SubFamilyRepository extends EntityRepository
 		return $this->createQueryBuilder('sub_family')
             ->orderBy('sub_family.name', 'ASC');
 	}
+	
+	public function findAny() {
+		$result = $this->createQueryBuilder('sub_family')
+			->setMaxResults(1)
+			->getQuery()
+			//->getOneOrNullResult();
+			->execute();
+		
+		return $result[0];
+	}
 }

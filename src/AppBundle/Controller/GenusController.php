@@ -28,25 +28,34 @@ class GenusController extends Controller
      * @Route("/genus/new")
      */
     public function newAction()
-    {	
+    {
+        $em = $this->getDoctrine()->getManager();
+		
+        $subFamily = $em->getRepository('AppBundle:SubFamily')
+            ->findAny();
+			
         $genus = new Genus();
-        $genus->setName('Octopus'.rand(1, 100));
-        $genus->setSubFamily('Octopodinae');
+        $genus->setName('Octopus'.rand(1, 10000));
+        $genus->setSubFamily($subFamily);
         $genus->setSpeciesCount(rand(100, 99999));
+        $genus->setFirstDiscoveredAt(new \DateTime('50 years'));
 		
-		$note = new GenusNote();
-		$note->setUsername('AquaWeaver');
-        $note->setUserAvatarFilename('ryan.jpeg');
-        $note->setNote('I counted 8 legs... as they wrapped around me');
-        $note->setCreatedAt(new \DateTime('-1 month'));
-		$note->setGenus($genus);
+        $genusNote = new GenusNote();
+        $genusNote->setUsername('AquaWeaver');
+        $genusNote->setUserAvatarFilename('ryan.jpeg');
+        $genusNote->setNote('I counted 8 legs... as they wrapped around me');
+        $genusNote->setCreatedAt(new \DateTime('-1 month'));
+        $genusNote->setGenus($genus);
 		
-		$em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')
+            ->findOneBy(['email' => 'aquanaut1@example.org']);
+        $genus->addGenusScientist($user);
+		
         $em->persist($genus);
-		$em->persist($note);
+        $em->persist($genusNote);
         $em->flush();
 		
-		return new Response(sprintf(
+        return new Response(sprintf(
             '<html><body>Genus created! <a href="%s">%s</a></body></html>',
             $this->generateUrl('genus_show', ['slug' => $genus->getSlug()]),
             $genus->getName()
