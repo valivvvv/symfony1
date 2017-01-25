@@ -2,9 +2,10 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GenusRepository")
@@ -18,23 +19,33 @@ class Genus
      * @ORM\Column(type="integer")
      */
     private $id;
+	
     /**
 	 * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
     private $name;
+	
+	/**
+     * @ORM\Column(type="string", unique=true)
+	 * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
+	
     /**
 	 * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamily")
      * @ORM\JoinColumn(nullable=false)
      */
     private $subFamily;
+	
     /**
 	 * @Assert\NotBlank()
 	 * @Assert\Range(min=0, minMessage="Negative species! Come on...")
      * @ORM\Column(type="integer")
      */
     private $speciesCount;
+	
     /**
      * @ORM\Column(type="string", nullable=true)
      */
@@ -202,5 +213,15 @@ class Genus
     public function setFirstDiscoveredAt(\DateTime $firstDiscoveredAt = null)
     {
         $this->firstDiscoveredAt = $firstDiscoveredAt;
+    }
+	
+	public function getSlug()
+    {
+        return $this->slug;
+    }
+	
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }

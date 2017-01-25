@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class GenusController extends Controller
 {
     /**
      * @Route("/", name="homepage")
@@ -25,7 +25,7 @@ class DefaultController extends Controller
     }
 	
 	/**
-     * @Route("/taxi/new")
+     * @Route("/genus/new")
      */
     public function newAction()
     {	
@@ -46,11 +46,15 @@ class DefaultController extends Controller
 		$em->persist($note);
         $em->flush();
 		
-		return new Response('<html><body>Genus created!</body></html>');
+		return new Response(sprintf(
+            '<html><body>Genus created! <a href="%s">%s</a></body></html>',
+            $this->generateUrl('genus_show', ['slug' => $genus->getSlug()]),
+            $genus->getName()
+        ));
     }
 	
 	/**
-     * @Route("/taxi", name="taxi_list")
+     * @Route("/genus", name="genus_list")
      */
     public function listAction()
     {
@@ -60,51 +64,48 @@ class DefaultController extends Controller
 		
 		//dump($em->getRepository('AppBundle:Genus'));
         
-		return $this->render('taxi/list.html.twig', array(
+		return $this->render('genus/list.html.twig', array(
             'genuses' 	=> $genuses,
 			'title'		=> 'Listing page'
         ));
     }
 	
 	/**
-	 * @Route("/taxi/{licensePlate}", name="taxi_show")
+	 * @Route("/genus/{slug}", name="genus_show")
 	 */
-	public function showAction($licensePlate)
+	public function showAction(Genus $genus)
 	{
 		$em = $this->getDoctrine()->getManager();
 		
+		/* Symfony gest the genus automatically, so this is obsolete
 		$genus = $em->getRepository('AppBundle:Genus')
 		  ->findOneBy(array('name' => $licensePlate));
 		  
 		if (!$genus) {
-            throw $this->createNotFoundException('Taxi not found');
-        }	  
+            throw $this->createNotFoundException('Genus not found');
+        }*/	  
 		
 		$markdownTransformer = $this->get('app.markdown_transformer'); // registered in services.yml
+		$funFact = $markdownTransformer->parse($genus->getFunFact());
 		
         $this->get('logger')
-            ->info('Showing genus: '.$licensePlate);
-			
-		/* Gets all notes, then we filter the array
-		$recentNotes = $genus->getNotes()
-            ->filter(function(GenusNote $note) {
-                return $note->getCreatedAt() > new \DateTime('-3 months');
-            });*/
+            ->info('Showing genus: '.$genus->getName());
 			
 		$recentNotes = $em->getRepository('AppBundle:GenusNote')
             ->findAllRecentNotesForGenus($genus);
 
-		return $this->render('taxi/show.html.twig', array(
-		  'title' 			=> $licensePlate,
+		return $this->render('genus/show.html.twig', array(
+		  'title' 			=> $genus->getName(),
 		  'genus' 			=> $genus,
+		  'funFact'			=> $funFact,
 		  'recentNoteCount' => count($recentNotes),
 		));
 	}
 	
 	/**
-     * @Route("/taxi/{name}/reviews", name="taxi_show_reviews")
+     * @Route("/genus/{slug}/reviews", name="genus_show_reviews")
      * @Method("GET")
-	 * Param Conversion matches {name} to Genus object
+	 * Param Conversion matches {slug} to Genus object
      */
     public function getReviewsAction(Genus $genus)
     {

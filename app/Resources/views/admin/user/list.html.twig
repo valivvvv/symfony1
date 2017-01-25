@@ -16,7 +16,7 @@
             {% for user in users %}
                 <tr>
                     <td>
-                    	<a href="{#{ path('taxi_show', {'licensePlate': genus.name}) }#}">
+                    	<a href="{#{ path('genus_show', {'slug': genus.slug}) }#}">
                             {{ user.email }}
                         </a>
                     </td>
