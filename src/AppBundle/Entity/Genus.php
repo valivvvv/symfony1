@@ -69,8 +69,9 @@ class Genus
 	private $notes;
 	
 	/**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="studiedGenuses")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="studiedGenuses", fetch="EXTRA_LAZY")
 	 * @ORM\JoinTable(name="genus_scientist")
+	 * EXTRA_LAZY => Doctrine realizes that all we're doing is counting the scientists. But, if we were to actually loop over the scientists and start accessing data on each User then it would make a full query for all the User data. 
      */
 	private $genusScientists;
 	
