@@ -37,9 +37,9 @@ class UserController extends Controller
                 );
         }
 
-        return $this->render('user/register.html.twig', [
+        return $this->render('user/register.html.twig', array(
             'form' => $form->createView()
-        ]);
+        ));
     }
 
     /**
@@ -67,14 +67,14 @@ class UserController extends Controller
 
             $this->addFlash('success', 'User Updated!');
 
-            return $this->redirectToRoute('user_edit', [
+            return $this->redirectToRoute('user_edit', array(
                 'id' => $user->getId()
-            ]);
+            ));
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('user/edit.html.twig', array(
             'userForm' => $form->createView()
-        ]);
+        ));
 
     }
 }
