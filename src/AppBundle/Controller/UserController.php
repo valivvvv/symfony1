@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
-//use AppBundle\Form\UserEditForm;
+use AppBundle\Form\UserEditForm;
 use AppBundle\Form\UserRegistrationForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
