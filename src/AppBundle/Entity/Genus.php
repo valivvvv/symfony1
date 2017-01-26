@@ -240,11 +240,17 @@ class Genus
         }
 		
 		$this->genusScientists[] = $user;
+		$user->addStudiedGenus($this); // not needed for persistence, just keeping both sides in sync during same request
 	}
 	
 	public function removeGenusScientist(User $user)
     {
+		if (!$this->genusScientists->contains($user)) {
+            return;
+        }
+		
 		$this->genusScientists->removeElement($user);
+        $user->removeStudiedGenus($this); // not needed for persistence, just keeping both sides in sync during same request
     }
 	
 	/**
