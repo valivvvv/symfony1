@@ -52,11 +52,29 @@ class User implements UserInterface
      * @ORM\Column(type="json_array")
      */
     private $roles = array();
-	
-	/**
-     * Get id
-     *
-     * @return integer
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isScientist = false;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $avatarUri;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
      */
     private $universityName;
 
